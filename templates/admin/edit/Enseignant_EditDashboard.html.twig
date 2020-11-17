@@ -1,0 +1,51 @@
+{# @var ea \EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext #}
+{% extends '@EasyAdmin/page/content.html.twig' %}
+{% block body_javascript %}
+    <script>
+        $(function () {
+            setTimeout(function(){
+                alert('coucou');
+            }, 2000);
+        });
+
+    </script>
+{% endblock %}
+
+{% block page_actions %}
+    <button class="btn btn-primary" id="ouvrageClick">
+        <span class="btn-label">Consulter l'enseignant</span>
+    </button>
+    {% for action in entity.actions %}
+        {{ include(action.templatePath, { action: action }, with_context = false) }}
+    {% endfor %}
+{% endblock %}
+
+{% block body_class -%}
+    {{ parent() }}
+{%- endblock %}
+{% block main %}
+    <style>
+
+    </style>
+    <div class="content-panel">
+        <div class="content-panel-body without-header with-background without-footer">
+            <div class="row">
+                {% block edit_form %}
+                    <div class="col-sm-12 col-md-12 col-lg-6">
+                        {{ form_start(edit_form) }}
+                        <div class="field-text form-group">
+                            {{ form_label(edit_form.identite) }}
+                            <div class="form-widget">
+                                {{ form_widget(edit_form.identite) }}
+                            </div>
+                        </div>
+                    </div>
+                    {{ form_end(edit_form) }}
+                {% endblock edit_form %}
+                {% block delete_form %}
+                    {{ include('@EasyAdmin/crud/includes/_delete_form.html.twig', { entity_id: entity.primaryKeyValue }, with_context = false) }}
+                {% endblock delete_form %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

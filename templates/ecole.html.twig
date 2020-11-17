@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}{% endblock %}
+{% block javascripts %}{% endblock %}
+
+{% block content %}
+    {% for key, classe in classes %}
+        <li class="col-sm-4 col-xs-12 portfolio-item nopadding-lr {{ classe.niveau }} isotope-item">
+            <div class="hover-item">
+                <img src="{{ asset('medias/images/') }}{{ classe.VignetteName }}"
+                     alt="{{ classe.VignetteName }}" class="img-responsive smoothie">
+                <div class="overlay-item-caption smoothie"></div>
+                <div class="hover-item-caption smoothie">
+                    <div class="vertical-center smoothie">
+                        <h3 class="smoothie mb30"><a href="{{ path('ecoleArticles') }}" title="view project">{{ classe.titre }}</a></h3>
+                        <a href="single-portfolio-fullscreen.html" class="smoothie btn btn-primary">Entrer dans la classe</a>
+                    </div>
+                </div>
+            </div>
+        </li>
+    {% endfor %}
+
+{% endblock %}

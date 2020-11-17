@@ -1,0 +1,68 @@
+{% extends "@EasyAdmin/layout.html.twig" %}
+
+{% block head_stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('assets/css/dropzone.min.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block head_javascript %}
+    {{ parent() }}
+    <script src="{{ asset('assets/js/dropzone.min.js?v=3') }}"></script>
+{% endblock %}
+
+{% block body_javascript %}
+    <script>
+        Dropzone.options.dropzone = {
+            success: function (file, response) {
+                if (response.success != undefined) {
+                    $('#success p').text(response.success);
+                    $('#success').fadeIn(500);
+                    this.removeAllFiles();
+                }
+                if (response.error != undefined) {
+                    $('#error p').text(response.error);
+                    $('#error').fadeIn(500);
+                    this.removeAllFiles();
+                }
+            }
+        };
+    </script>
+{% endblock %}
+
+{% block content_title %}
+    Ecoles disponibles pour l'import
+{% endblock %}
+
+{% block main %}
+    <style>
+
+    </style>
+    <div id="success" class="alert alert-success alertContent" role="alert" style="display: none;">
+        <p></p>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div id="error" class="alert alert-warning alertContent" role="alert" style="display: none;">
+        <p></p>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="pageUploadOuvrage">
+
+        <form action="{{ path('unzip_ajax') }}" class="dropzone" id="dropzone">
+            <div class="fallback">
+                <input name="file" type="file" id="file"/>
+            </div>
+        </form>
+
+        <div class="ouvragesSearch">
+            {% for ecole in ecoles %}
+
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

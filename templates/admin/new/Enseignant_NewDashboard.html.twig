@@ -1,0 +1,49 @@
+{# @var ea \EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext #}
+{% extends '@EasyAdmin/page/content.html.twig' %}
+{% block body_javascript %}
+    {{ parent() }}
+    {% for js_asset in new_form.vars.ea_crud_form.assets.jsFiles %}
+        <script src="{{ asset(js_asset) }}"></script>
+    {% endfor %}
+    <script>
+        //preview du SVG et de son fond
+        $(function () {
+
+        });
+    </script>
+{% endblock %}
+{% block page_actions %}
+    {% for action in entity.actions %}
+        {{ include(action.templatePath, { action: action }, with_context = false) }}
+    {% endfor %}
+{% endblock %}
+
+{% block body_class -%}
+    {{ parent() }}
+{%- endblock %}
+{% block main %}
+    <style>
+
+    </style>
+    <div class="content-panel">
+        <div class="content-panel-body without-header with-background without-footer">
+            <div class="row">
+                {% block new_form %}
+                    <div class="col-sm-12 col-md-12 col-lg-6">
+                        {{ form_start(new_form) }}
+                        <div class="field-text form-group">
+                            {{ form_label(new_form.identite) }}
+                            <div class="form-widget">
+                                {{ form_widget(new_form.identite) }}
+                            </div>
+                        </div>
+                    </div>
+                    {{ form_end(new_form) }}
+                {% endblock new_form %}
+                {% block delete_form %}
+                    {{ include('@EasyAdmin/crud/includes/_delete_form.html.twig', { entity_id: entity.primaryKeyValue }, with_context = false) }}
+                {% endblock delete_form %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
